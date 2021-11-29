@@ -1,0 +1,32 @@
+version: '1'
+entity_types:
+  Universe:
+    has_designer: false
+    show_properties: false
+  System:
+    has_designer: true
+    show_properties: false
+  Analysis:
+    show_properties: false
+    has_designer: true
+  Planet:
+    show_properties: false
+    has_designer: true
+entities:
+- entity_type: Universe
+  properties:
+    name: Universe
+  children:
+    - entity_type: System
+      properties:
+        name: Solar System
+      children:
+        - entity_type: Analysis
+          properties:
+            name: Example Analysis
+        - entity_type: Planet
+          properties:
+            name: Earth
+        - entity_type: Planet
+          properties:
+            name: Mars
