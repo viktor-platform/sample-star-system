@@ -26,6 +26,7 @@ from .parametrization import ExampleParametrisation
 
 
 class ExampleController(ViktorController):
+    
     """Controller class which acts as interface for the Analysis entity type.
 
     This Analysis entity-type has:
@@ -42,8 +43,6 @@ class ExampleController(ViktorController):
     def get_data_view(self, params: Munch, entity_id: int, **kwargs) -> WebAndDataResult:
         """Creates the output WebAndDataView that is visible in the Web UI."""
 
-
-
         if params.planet is None:
             raise UserException("Select a planet")
 
@@ -59,7 +58,7 @@ class ExampleController(ViktorController):
         # create data group for visualisation
         main_data_group = DataGroup(
             DataItem("Star name", star_name),
-            DataItem("planet name", planet.name),
+            DataItem("Planet name", planet.planet_name),
             DataItem("Orbit Period", properties["period"], suffix="years", number_of_decimals=3),
             DataItem("Semi-major axis", properties["semi-major"], suffix="AU", number_of_decimals=3),
             DataItem("Semi-minor axis", properties["semi-minor"], suffix="AU", number_of_decimals=3),
@@ -83,7 +82,6 @@ def get_star_values(entity_id: int) -> Tuple[str, float]:
 
 def get_planet_params(params: Munch) -> Munch:
     """Get values from the Planet entity based on the selected planet in analysis."""
-    selected_planet_id = params.planet
-    planet_entity = API().get_entity(selected_planet_id)  # selected Planet entity
-    planet_params = planet_entity.last_saved_params
+    selected_planet = params.planet  # selected Planet entity
+    planet_params = selected_planet.last_saved_params
     return planet_params
